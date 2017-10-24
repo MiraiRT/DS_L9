@@ -64,7 +64,7 @@ def height(root):
 
 def path(root, data):
     if root is None:
-        print('Invalid Data')
+        print('Data Not Found')
     else:
         if data is root.data:
             print(root.data)
@@ -76,12 +76,34 @@ def path(root, data):
             path(root.right, data)
 
 
+def search(root, data):
+    if root is None:
+        return None
+    else:
+        if data is root.data:
+            return root
+        elif data < root.data:
+            return search(root.left, data)
+        else:
+            return search(root.right, data)
+
+
+def depth(root, data):
+    if search(root, data):
+        if data is root.data:
+            return 0
+        elif data < root.data:
+            return depth(root.left, data) + 1
+        else:
+            return depth(root.right, data) + 1
+    else:
+        return 0
+
 l = [14, 4, 9, 7, 15, 3, 18, 16, 20, 5, 16]
 print('Input : ', l)
 r = None
-for ele in l:
-    r = addi(r, ele)
-print('')
+for data in l:
+    r = addi(r, data)
 print('InOrder : ', end=' ')
 inOrder(r)
 print('\n')
@@ -93,7 +115,16 @@ print()
 print('Height of', r.data, ':', height(r))
 print()
 
-d = 5
+d = 16
 print('Path of', d, ':', end=' ')
 path(r, d)
+print()
+
+d = 15
+t = search(r, d)
+print('Search', d, ':', t)
+print()
+
+d = 16
+print('Depth of', d, ':', depth(r, d))
 print()
