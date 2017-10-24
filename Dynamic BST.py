@@ -8,7 +8,7 @@ class node:
         return str(self.data)
 
 
-def addi(root, data):
+def add(root, data):
     if root is None:
         root = node(data)
         return root
@@ -17,6 +17,27 @@ def addi(root, data):
             root.left = addi(root.left, data)
         else:
             root.right = addi(root.right, data)
+    return root
+
+
+def addi(root, data):
+    if root is None:
+        root = node(data)
+    else:
+        h = root
+        while True:
+            if data < h.data:
+                if h.left is None:
+                    h.left = node(data)
+                    break
+                else:
+                    h = h.left
+            else:
+                if h.right is None:
+                    h.right = node(data)
+                    break
+                else:
+                    h = h.right
     return root
 
 
@@ -65,14 +86,14 @@ print('InOrder : ', end=' ')
 inOrder(r)
 print('\n')
 
-print('printSideWay:')
+print('PrintSideWay:')
 printSideWay(r, 0)
 print()
 
-print('height of', r.data, '=', height(r))
+print('Height of', r.data, ':', height(r))
 print()
 
 d = 5
-print('path:', d, '=', end=' ')
+print('Path of', d, ':', end=' ')
 path(r, d)
 print()
