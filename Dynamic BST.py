@@ -99,6 +99,35 @@ def depth(root, data):
     else:
         return 0
 
+
+def mulEven(root, data):
+    if root:
+        print('Go', root.data, end=' ')
+        if root.data > data:
+            if root.data % 2 == 0:
+                root.data = root.data * 2
+                print('>>', root.data, end='')
+            print()
+            mulEven(root.left, data)
+            mulEven(root.right, data)
+        else:
+            print()
+            mulEven(root.right, data)
+
+
+def delLeaf(root):
+    if root.left is not None and root.right is not None:
+        root.left = delLeaf(root.left)
+        root.right = delLeaf(root.right)
+    elif root.left is not None:
+        root.left = delLeaf(root.left)
+    elif root.right is not None:
+        root.right = delLeaf(root.right)
+    else:
+        root = None
+    return root
+
+
 l = [14, 4, 9, 7, 15, 3, 18, 16, 20, 5, 16]
 print('Input : ', l)
 r = None
@@ -108,23 +137,21 @@ print('InOrder : ', end=' ')
 inOrder(r)
 print('\n')
 
-print('PrintSideWay:')
+print('PrintSideWay : ')
 printSideWay(r, 0)
-print()
+print(10 * '--')
 
-print('Height of', r.data, ':', height(r))
-print()
+'''
+print('MulEven :')
+mulEven(r, 8)
+print('InOrder : ', end=' ')
+inOrder(r)
+print('\n')
+print('PrintSideWay : ')
+printSideWay(r, 0)
+'''
 
-d = 16
-print('Path of', d, ':', end=' ')
-path(r, d)
-print()
-
-d = 15
-t = search(r, d)
-print('Search', d, ':', t)
-print()
-
-d = 16
-print('Depth of', d, ':', depth(r, d))
-print()
+print('Delete Leaf')
+r = delLeaf(r)
+print('PrintSideWay : ')
+printSideWay(r, 0)
